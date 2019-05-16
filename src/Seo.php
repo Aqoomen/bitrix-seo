@@ -38,7 +38,7 @@ class Seo
 
     public static function __callStatic($method, $params)
     {
-        return static::$_meta->$method($params);
+        return static::$_meta->$method(...$params);
     }
 
 }
