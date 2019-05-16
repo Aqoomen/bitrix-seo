@@ -1,1 +1,1 @@
-# bitrix-iblock
+# bitrix-seo

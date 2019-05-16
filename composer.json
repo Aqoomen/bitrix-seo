@@ -1,6 +1,7 @@
 {
-    "name": "aqoomen/bitrix-iblock",
-    "description": "this is short iblock tools for bitrix",
+
+    "name": "aqoomen/bitrix-seo",
+    "description": "this is short seo tools for bitrix",
     "type": "library",
     "version":"1.0.1",
     "license": "MIT",
