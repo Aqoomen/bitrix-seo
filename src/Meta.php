@@ -56,7 +56,7 @@ class Meta
         return (is_null($string))  ? $this->requestUri() : $string ;
     }
 
-    public function canonical($string)
+    public function canonical($string = null)
     {
         $this->canonical = $this->takeCanonical($string);
     }
