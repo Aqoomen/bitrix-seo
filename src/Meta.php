@@ -53,7 +53,17 @@ class Meta
 
     protected function takeCanonical($string = null)
     {
-        return (is_null($string))  ? $this->requestUri() : $string ;
+        return (is_null($string))  ? $this->prepareStringUri($this->requestUri()) : $string ;
+    }
+
+    public function prepareStringUri($uri)
+    {
+        $uriList = parse_url($uri);
+
+        unset($uriList['query']);
+
+        return $uriList['scheme'] . '://' . $uriList['host'] . $uriList['path'];
+
     }
 
     public function canonical($string = null)
