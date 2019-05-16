@@ -1,6 +1,8 @@
 <?php
 namespace iPremium\Bitrix\Seo;
 
+use iPremium\Bitrix\Seo\Meta;
+
 class Seo
 {
     protected static $_meta = null;
@@ -18,6 +20,11 @@ class Seo
 
     public static function meta()
     {
+        if (is_null(static::$_meta))
+        {
+            static::$_meta = new Meta;
+        }
+
         return static::$_meta;
     }
 
@@ -31,14 +38,15 @@ class Seo
         return $asset->addString($string);
     }
 
-    public static function requestUri()
-    {
-        return static::$_meta->requestUri();
-    }
 
     public static function __callStatic($method, $params)
     {
-        return static::$_meta->$method(...$params);
+        if (is_null(static::$_meta))
+        {
+            static::$_meta = new Meta;
+        }
+        //var_dump(static::$_meta);
+        return call_user_func_array([static::$_meta, $method], $params);
     }
 
 }

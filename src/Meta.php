@@ -4,11 +4,20 @@ namespace iPremium\Bitrix\Seo;
 class Meta
 {
     protected $title;
+
     protected $keywords;
+
     protected $metatext;
+
     protected $meaturl;
+
     protected $description;
+
     protected $canonical;
+
+    protected $header;
+
+    protected $modify = false;
 
     public function __construct()
     {
