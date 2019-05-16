@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "iPremium\\Bitrix\\iBlock\\": "src"
+            "iPremium\\Bitrix\\Seo\\": "src"
         }
     }
 }
