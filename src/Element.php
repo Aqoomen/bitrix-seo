@@ -1,6 +1,8 @@
 <?php
 namespace iPremium\Bitrix\iBlock;
 
+use iPremium\Bitrix\iBlock\ElementItem as Item;
+
 class Element
 {
     /*
@@ -28,8 +30,12 @@ class Element
         "DETAIL_PAGE_URL"
     ];
 
-    public function __construct()
+    protected $returnArray = false;
+
+    public function __construct($id, $return)
     {
+        $this->iblockId = $id;
+        $this->returnArray = $return;
         //to do use global settings in iBLock::instanse()->elementLoverCase();
     }
 
@@ -56,9 +62,9 @@ class Element
         return $this;
     }
 
-    public function iblock($id)
+    public static function iblock($id, $return = false)
     {
-        $this->iblockId = $id;
+        return new static($id, $return);
     }
 
     public function filter($params)
@@ -104,15 +110,28 @@ class Element
 
         	while($ob = $res->GetNextElement())
         	{
-        			$element = $ob->GetFields();
-        			$element["PROPERTIES"] = $ob->GetProperties();
+    			$element = $ob->GetFields();
+    			$element["PROPERTIES"] = $ob->GetProperties();
 
-        			$elements[] = $element;
+                if ( is_callable($method) )
+                {
+                    call_user_func_array($method, [ &$element ]);
+                }
 
-                    if ( is_callable($method) )
-                    {
-                        call_user_func_array($method, [ &$element ]);
+                if ($this->returnArray) {
+                    if ($count == 1) {
+                        return $elements = $element;
                     }
+
+                    $elements[] = $element;
+                }
+                else
+                {
+                    if ($count == 1) {
+                        $elements = new Item($element);
+                    }
+                }
+
         	}
 
             return $elements;
@@ -123,9 +142,9 @@ class Element
         }
     }
 
-
-    public static function __callStatic($method, $parameters)
+    public function first($method = null)
     {
-        return (new static)->$method(...$parameters);
+        return $this->get(1, $method);
     }
+
 }

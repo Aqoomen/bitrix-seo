@@ -33,6 +33,7 @@ class Section
 
     public function __construct()
     {
+        $this->iblockId = $id;
         //to do use global settings in iBLock::instanse()->elementLoverCase();
     }
 
@@ -59,9 +60,9 @@ class Section
         return $this;
     }
 
-    public function iblock($id)
+    public static function iblock($id)
     {
-        $this->iblockId = $id;
+        return new static($id);
     }
 
     public function filter($params)
@@ -108,12 +109,12 @@ class Section
 
             while($arSection = $rsSections->GetNext())
     		{
-    			$sections[] = $arSection;
-
                 if ( is_callable($method) )
                 {
-                    call_user_func_array($method, [ &$element ]);
+                    call_user_func_array($method, [ &$arSection ]);
                 }
+
+                $sections[] = $arSection;
     		}
 
             return $sections;
@@ -124,9 +125,4 @@ class Section
         }
     }
 
-
-    public static function __callStatic($method, $parameters)
-    {
-        return (new static)->$method(...$parameters);
-    }
 }
