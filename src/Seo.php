@@ -36,4 +36,9 @@ class Seo
         return static::$_meta->requestUri();
     }
 
+    public static function __callStatic($method, $params)
+    {
+        return static::$_meta->$method($params);
+    }
+
 }
