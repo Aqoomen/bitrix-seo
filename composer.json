@@ -3,7 +3,7 @@
     "name": "aqoomen/bitrix-seo",
     "description": "this is short seo tools for bitrix",
     "type": "library",
-    "version":"1.0.1",
+    "version":"1.1.1",
     "license": "MIT",
     "authors": [
         {
